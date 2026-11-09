@@ -1,0 +1,25 @@
+# No copiar al contexto de build lo que se genera dentro o no hace falta.
+**/__pycache__/
+**/*.pyc
+backend/.venv/
+backend/.pytest_cache/
+backend/storage/
+backend/tests/
+backend/tessdata/*.traineddata
+
+frontend/node_modules/
+frontend/dist/
+
+electron/node_modules/
+electron/dist/
+dist-desktop/
+
+.git/
+.gitignore
+.idea/
+.vscode/
+**/.DS_Store
+Thumbs.db
+
+# Los secretos nunca entran en la imagen; se pasan por entorno.
+**/.env

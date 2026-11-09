@@ -1,0 +1,6 @@
+-r requirements.txt
+pytest>=8.0
+httpx2
+
+# Empaquetado de la app de escritorio (scripts\build-desktop.ps1)
+pyinstaller>=6.0,<7.0

@@ -1,0 +1,51 @@
+{
+  "name": "epdf-desktop",
+  "productName": "EPDF",
+  "version": "0.3.1",
+  "description": "EPDF — editor y procesador de PDF local.",
+  "author": "PDF Local",
+  "private": true,
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test",
+    "dist": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "44.10.2",
+    "electron-builder": "26.18.0"
+  },
+  "build": {
+    "appId": "com.epdf.app",
+    "productName": "EPDF",
+    "directories": {
+      "output": "../dist-desktop/installers"
+    },
+    "files": [
+      "main.js",
+      "navigation-policy.js",
+      "package.json",
+      "build/**"
+    ],
+    "extraResources": [
+      {
+        "from": "../dist-desktop/backend",
+        "to": "backend"
+      }
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico",
+      "artifactName": "EPDF-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "guid": "1dc1bdf5-b7bd-5394-97f0-381fce99df89",
+      "oneClick": false,
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true,
+      "shortcutName": "EPDF",
+      "deleteAppDataOnUninstall": false,
+      "include": "build/installer.nsh"
+    }
+  }
+}

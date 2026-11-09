@@ -1,0 +1,21 @@
+# PDF Local en un contenedor. Uso:
+#   docker compose up --build
+# Luego abre http://localhost:8000
+#
+# Traducir PDF (opcional) necesita una clave de Groq. Ponla en tu entorno antes de arrancar:
+#   PowerShell:  $env:PDFEDITOR_GROQ_API_KEY = "tu_clave"
+#   bash:        export PDFEDITOR_GROQ_API_KEY=tu_clave
+
+services:
+  pdf-local:
+    build: .
+    image: pdf-local:latest
+    container_name: pdf-local
+    ports:
+      # Solo el equipo anfitrión puede acceder. Dentro del contenedor Uvicorn sigue
+      # escuchando en 0.0.0.0 para que la publicación de Docker funcione.
+      - "127.0.0.1:8000:8000"
+    environment:
+      # Se toma del entorno del host; vacío = herramienta de traducción desactivada.
+      PDFEDITOR_GROQ_API_KEY: "${PDFEDITOR_GROQ_API_KEY:-}"
+    restart: unless-stopped

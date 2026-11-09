@@ -1,0 +1,26 @@
+* text=auto
+
+# Código y configuración compartidos entre Windows, Docker y CI
+*.py text eol=lf
+*.js text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.json text eol=lf
+*.toml text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+Dockerfile text eol=lf
+
+# Scripts ejecutados directamente por Windows PowerShell
+*.ps1 text eol=crlf
+
+# Documentación
+*.md text eol=lf
+
+# Recursos binarios
+*.ico binary
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.woff binary
+*.woff2 binary

@@ -1,0 +1,85 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Node
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+frontend/.test-tmp/
+
+# Entorno y secretos
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Datos de idioma del OCR (binarios grandes; se descargan con scripts/setup-ocr.ps1)
+backend/tessdata/*.traineddata
+
+# Archivos temporales de procesamiento
+backend/storage/
+tmp/
+output/
+dist-desktop/
+*.log
+
+# Documentos de usuario y artefactos generados. Los fixtures públicos deben vivir en
+# backend/tests/fixtures/public/ y re-incluirse explícitamente cuando se creen.
+*.pdf
+*.doc
+*.docx
+*.xls
+*.xlsx
+*.ppt
+*.pptx
+*.odt
+*.ods
+*.odp
+*.rtf
+*.epub
+*.zip
+*.7z
+*.rar
+*.exe
+*.msi
+!backend/tests/fixtures/public/**
+
+# Datos locales que pueden contener contenido privado
+*.db
+*.sqlite
+*.sqlite3
+
+# Resultados de UAT/laboratorio e informes internos con rutas locales
+.sticker-validation/
+.uat-validation/
+qa/negociacion-uat/
+qa/phase1-pdf-to-word/
+qa/phase2a/
+qa/phase2b/
+APPLE_PONYTAIL_GOLD_REPORT.md
+CODEX_HANDOFF*.md
+EDITOR_*_REPORT.md
+FASE_*_INFORME.md
+REPORTE_QA_*.md
+GIT_SETUP_PROPOSAL.md
+
+# Editor / SO
+.vscode/
+.idea/
+.claude/
+.codex/
+.agents/
+Thumbs.db
+.DS_Store

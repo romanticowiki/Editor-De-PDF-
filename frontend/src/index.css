@@ -1,0 +1,144 @@
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+/*
+ * Tokens de color. Contrastes verificados (WCAG AA ≥ 4.5:1) en ambos temas:
+ * texto/fondo, muted/superficie, texto sobre acento y tonos de estado sobre su fondo suave.
+ * El tema lo fija JS en <html data-theme> (preferencia guardada o la del sistema).
+ */
+:root {
+  color-scheme: light;
+  --canvas: #eae0cd;
+  --surface: #fbf8f2;
+  --surface-sunken: #f4ede0;
+  --line: #d9cab0;
+  --ink: #27241f;
+  --ink-soft: #46413a;
+  --muted: #655e55;
+  --subtle: #9a9186;
+  --accent: #a0522d;
+  --accent-hover: #86431f;
+  --accent-ring: #b8633d;
+  --accent-soft: #f3ded2;
+  --on-accent: #fbf8f2;
+  --success: #536142;
+  --success-soft: #e3e7d8;
+  --warning: #7a5712;
+  --warning-soft: #f3e6c4;
+  --danger: #9e3b28;
+  --danger-soft: #f2d9d2;
+  --teal: #3d6b6a;
+  --teal-soft: #dbe8e5;
+
+  --shadow-rgb: 62 44 24;
+  --glass-rgb: 251 248 242;
+  --glass-edge: rgb(255 255 255 / 0.6);
+  --glass-highlight: rgb(255 255 255 / 0.75);
+  --glow-warm: rgb(243 222 210 / 0.95);
+  --glow-sun: rgb(243 230 196 / 0.75);
+  --grain-opacity: 1;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --canvas: #1a1815;
+  --surface: #24211d;
+  --surface-sunken: #1f1c19;
+  --line: #3a342d;
+  --ink: #f2e9da;
+  --ink-soft: #d9cdba;
+  --muted: #a99e8d;
+  --subtle: #7d7367;
+  --accent: #d98b5f;
+  --accent-hover: #e59e75;
+  --accent-ring: #e39468;
+  --accent-soft: #3b2a20;
+  --on-accent: #1a1815;
+  --success: #a9bb8e;
+  --success-soft: #283023;
+  --warning: #ddb765;
+  --warning-soft: #342b17;
+  --danger: #e58f7b;
+  --danger-soft: #3a231e;
+  --teal: #8fc1bd;
+  --teal-soft: #1f302e;
+
+  --shadow-rgb: 0 0 0;
+  --glass-rgb: 36 33 29;
+  --glass-edge: rgb(255 255 255 / 0.07);
+  --glass-highlight: rgb(255 255 255 / 0.05);
+  --glow-warm: rgb(160 82 45 / 0.2);
+  --glow-sun: rgb(122 87 18 / 0.16);
+  --grain-opacity: 0.55;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply min-h-dvh bg-canvas font-sans text-ink;
+  }
+
+  ::selection {
+    @apply bg-accent-soft text-ink;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent-ring;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+  }
+
+  svg.lucide {
+    stroke-width: 1.75;
+    flex-shrink: 0;
+  }
+}
+
+/* Luz cálida estática: cero coste por frame. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(60rem 40rem at 5% -15%, var(--glow-warm), transparent 65%),
+    radial-gradient(48rem 36rem at 105% 25%, var(--glow-sun), transparent 65%);
+}
+
+/* Grano de papel retro. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .16 0 0 0 0 .12 0 0 0 0 .08 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Material translúcido. Ajusta la opacidad por instancia con [--glass-alpha:…]. */
+@utility glass {
+  background-color: rgb(var(--glass-rgb) / var(--glass-alpha, 0.62));
+  border: 1px solid var(--glass-edge);
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight),
+    0 1px 2px rgb(var(--shadow-rgb) / 0.06),
+    0 28px 56px -32px rgb(var(--shadow-rgb) / 0.4);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+
+  @media (prefers-reduced-transparency: reduce) {
+    background-color: rgb(var(--glass-rgb));
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
